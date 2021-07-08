@@ -22,3 +22,6 @@ class Solution {
         return res;
     }
 }
+
+//Time: O(n*log(n)) where n is the length of the nums array
+//Space: O(k + n) where k is number of top 'k' elements to return
