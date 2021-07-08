@@ -1,0 +1,34 @@
+//https://leetcode.com/problems/find-median-from-data-stream/
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
+
+class MedianFinder {
+    /** initialize your data structure here. */
+    Queue<Integer> maxHeap = new PriorityQueue<>((a,b)->b-a);  //use custom comparator to create maxHeap
+    Queue<Integer> minHeap = new PriorityQueue();
+    
+    /* The idea is to create a max heap of the smaller half of numbers and a min heap of the larger half of numbers.
+    Offer the input to the max heap arbitrarily. Poll off the max heap and offer to the min heap.
+    If the sizes of the heaps are unbalanced, poll off the min heap and offer to the max heap.
+    */
+    
+    public void addNum(int num) {
+        maxHeap.offer(num);
+        minHeap.offer(maxHeap.poll());
+        if (maxHeap.size()<minHeap.size()) maxHeap.offer(minHeap.poll());
+    }
+    
+    /* If one heap is larger in size than the other, peek at this heap and return the value.
+    Otherwise peek at both heaps and return the average of the two numbers.
+    Remember to cast the values as double. Division of both before addition to prevent overflow error.
+    */
+    
+    public double findMedian() {
+        if (maxHeap.size()>minHeap.size()) return maxHeap.peek();
+        return (double)maxHeap.peek()/2 + (double)minHeap.peek()/2;
+    }
+}
