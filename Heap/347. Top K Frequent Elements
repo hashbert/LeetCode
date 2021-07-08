@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/top-k-frequent-elements/
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        //add all elements into a HashMap of Integer, frequency of Integer
+        Map<Integer, Integer> map = new HashMap(); 
+        for (int num: nums){
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        
+        //use custom comparator to create a pseudo max heap where elements on top have the highest frequency
+        Queue<Integer> q = new PriorityQueue<>((a,b)->map.get(b)-map.get(a)); 
+        for (Integer i : map.keySet()){
+            q.offer(i);
+        }
+        
+        //poll off the top 'k' elements and return
+        int[] res = new int[k];
+        for (int i = 0; i<k; i++){
+            res[i]=q.poll();
+        }
+        return res;
+    }
+}
