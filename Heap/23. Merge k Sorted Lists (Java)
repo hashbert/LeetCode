@@ -10,6 +10,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ 
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = new ListNode(0); //create dummy node to start linked list
@@ -34,3 +35,6 @@ class Solution {
         return res.next; //return next element of reference to initial dummy node
     }
 }
+
+//Time: O(n*log(k)) where k is number of lists and n is total number of nodes
+//Space: O(n)
