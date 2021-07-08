@@ -1,0 +1,13 @@
+# /https://leetcode.com/problems/two-sum/
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dictionary = {}
+        # create a dictionary which holds the element in nums and its index. Return a list of the current index and index of target-element.
+        for i, element in enumerate(nums):
+            if target-element in dictionary:
+                return [i, dictionary[target-element]]
+            dictionary[element]=i
+            
+# Time: O(n)
+# Space: O(n)
