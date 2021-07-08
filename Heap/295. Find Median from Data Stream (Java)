@@ -32,3 +32,6 @@ class MedianFinder {
         return (double)maxHeap.peek()/2 + (double)minHeap.peek()/2;
     }
 }
+
+//Time: O(n*log(n)) where n is the number of elements added
+//Space: O(n)
