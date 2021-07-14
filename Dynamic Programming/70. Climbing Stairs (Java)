@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/climbing-stairs/
+
+class Solution {
+    public int climbStairs(int n) {
+        int[] memo = new int[n+1];
+        return climbStairs_(n, memo);
+    }
+    public int climbStairs_(int n, int[] memo) {
+        if (memo[n]!=0) return memo[n];
+        if (n==1) return 1;
+        if (n==2) return 2;
+        memo[n] = climbStairs_(n-1, memo) + climbStairs_(n-2, memo);
+        return memo[n];
+    }
+}
+
+//Memoized answer. Create classic memoized array with n+1 size. Each memo[n] is the recursive call of ways to climbStairs_ with one less step and two less steps.
+//Time: O(n)
+//Space: O(n)
