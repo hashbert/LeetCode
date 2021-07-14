@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/coin-change/
+
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        if (amount==0) return 0;
+        if (amount<0) return -1;
+        int[] memo = new int[amount + 1];
+        return coinChange_(coins, amount, memo);
+    }
+    public int coinChange_(int[] coins, int amount, int[] memo) {
+        if (amount==0) return 0;
+        if (amount<0) return -1;
+        if (memo[amount]!=0) return memo[amount];
+        
+        int min = Integer.MAX_VALUE;
+        for (int i : coins){
+            int remainder = amount - i;
+            int remainderAmount = coinChange_(coins, remainder, memo);
+            if (remainderAmount!=-1){
+                min = Math.min(min, remainderAmount + 1);
+            }
+        }
+        
+        memo[amount] = min==Integer.MAX_VALUE? -1: min;
+        return memo[amount];
+    }
+}
+
+//Memoized solution. The idea is to recurse DFS through the coin amounts until you get to 0 or less. If the call bottoms out at a 0 (or not -1), add 1 to the min
+//return memoized amount
+
+//Time: O(n*m) where n is amount and m is number of coins
+//Space: O(n)
