@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/merge-two-sorted-lists/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1==null) return l2;
+        if (l2==null) return l1;
+        ListNode curr1 = l1;
+        ListNode curr2 = l2;
+        ListNode p1 = new ListNode(-101);
+        ListNode start = p1;
+        while(curr1!=null && curr2!=null){
+            ListNode n1 = curr1.next;
+            ListNode n2 = curr2.next;
+            if (curr1.val<curr2.val){
+                p1.next = curr1;
+                curr1=n1;
+                p1=p1.next;
+            }
+            else {
+                p1.next=curr2;
+                curr2=n2;
+                p1=p1.next;
+            }
+        }
+        if (curr1==null) p1.next=curr2;
+        else if (curr2==null) p1.next=curr1;
+        
+        return start.next;
+    }
+}
+
+//Make dummy node and a pointer for each list. Compare first nodes of each list and add smallest to next of dummy. Move pointer of respective list along.
+//Continue until one list is null. Append the rest of the other list.
+
+//Time: O(n) where n is total number of nodes in both lists
+//Space: O(n)
